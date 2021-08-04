@@ -1,0 +1,86 @@
+<!DOCTYPE html >
+<html>
+<head><link rel="stylesheet" type="text/css" href="css/catalougesystem.css"></head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+
+<h1>Annual Budget</h1>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<table id ="myTable" border="1">
+  <tbody>
+    <tr>
+      <th>  Client Name  </th>
+      <th> Project Name  </th>
+      <th> Budget </th>
+    </tr>
+
+  </tbody>
+</table>
+<span id="val"></span>
+<script>
+var arr = new Array();
+function addData() {
+    getData();
+    arr.push({
+        cn:document.getElementById("cn").value,
+        pn:document.getElementById("pn").value,
+        b:document.getElementById("b").value                
+    });
+
+    localStorage.setItem("localData", JSON.stringify(arr) );
+    showData();
+
+}
+
+function showData() {
+    getData();
+    var tbl = document.getElementById("myTable");
+    for(i=0;i<arr.length;i++){
+        var r= tbl.insertRow();
+        var cell1=r.insertCell();
+        var cell2=r.insertCell();
+        var cell3=r.insertCell();
+
+        cell1.innerHTML=arr[i].cn
+        cell2.innerHTML=arr[i].pn
+        cell3.innerHTML=arr[i].b
+
+    }
+
+}
+
+
+function Total() {
+    getData();
+    var sumVal=0;
+    for(i=0;i<arr.length;i++){
+    var s = JSON.stringify(arr[i].b);
+    var d = parseInt(s);
+      sumVal= d;
+    }
+    document.getElementById("val").innerHTML = "Sum Value = " + sumVal;
+    console.log(sumVal);
+  }
+
+function getData() {
+    var str = localStorage.getItem("localData");
+    if(str !=null)
+      arr =JSON.parse(str);
+
+}   
+
+
+showData();
+Total();
+</script>
+
+
+
+   
+<footer>
+	<p><span >All rights reserved</span>
+		<br><span><a href="mailto:riddhivaidya16@icloud.com">riddhivaidya16@icloud.com</a>
+		</p></span>
+</footer>
+	</html>
